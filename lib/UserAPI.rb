@@ -1,5 +1,6 @@
-require "UserAPI/version"
+require 'UserAPI/version'
+require 'rest-client'
 
 module UserAPI
-  # Your code goes here...
+  
 end
