@@ -1,10 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'UserAPI/version'
+require 'user-api/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "UserAPI"
+  spec.name          = "user-api"
   spec.version       = UserAPI::VERSION
   spec.authors       = ["Jim Chambers"]
   spec.email         = ["mrhistory@gmail.com"]
