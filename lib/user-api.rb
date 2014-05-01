@@ -4,27 +4,24 @@ require 'rest-client'
 require 'json'
 
 module UserAPI
-  def create_user(user)
-    private_resource = RestClient::Resource.new('https://user_service_dev.herokuapp.com/users/.json',
-                                                'web_service_user',
-                                                'catbrowncowjumps')
-    response = private_resource.post user.to_json
+
+  @endpoint = RestClient::Resource.new('https://user-service-dev.herokuapp.com', 'web_service_user', 'catbrowncowjumps')
+
+  def self.create_user(user)
+    response = @endpoint['users/.json'].post user.to_json
     if response.code == 200
-      User.new(JSON.parse(response.to_str))
+      User.new(JSON.parse(response.to_str, symbolize_names: true))
     else
-      JSON.parse(response.to_str)
+      JSON.parse(response.to_str, symbolize_names: true)
     end
   end
 
-  def delete_user(id)
-    private_resource = RestClient::Resource.new("https://user_service_dev.herokuapp.com/users/#{id}.json",
-                                                'web_service_user',
-                                                'catbrowncowjumps')
-    response = private_resource.delete
+  def self.delete_user(id)
+    response = @endpoint["users/#{id}.json"].delete
     if response.code == 200
       true
     else
-      JSON.parse(response.to_str)
+      JSON.parse(response.to_str, symbolize_names: true)
     end
   end
 end

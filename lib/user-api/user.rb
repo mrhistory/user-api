@@ -23,25 +23,25 @@ module UserAPI
                 :id
 
     def initialize(params)
-      @organizations = params['organizations']
-      @email = params['email']
-      @members = params['members']
-      @permissions = params['permissions']
-      @first_name = params['first_name']
-      @last_name = params['last_name']
-      @address1 = params['address1']
-      @address2 = params['address2']
-      @city = params['city']
-      @state = params['state']
-      @zipcode = params['zipcode']
-      @phone_number = params['phone_number']
-      @remember_me_token = params['remember_me_token']
-      @logged_in = params['logged_in']
-      @active = params['active']
-      @activation_code = params['activation_code']
-      @activated_at = params['activated_at']
-      @reset_token = params['reset_token']
-      @id = params['id']
+      @organizations = params[:organizations] ||= nil
+      @email = params[:email] ||= nil
+      @members = params[:members] ||= nil
+      @permissions = params[:permissions] ||= nil
+      @first_name = params[:first_name] ||= nil
+      @last_name = params[:last_name] ||= nil
+      @address1 = params[:address1] ||= nil
+      @address2 = params[:address2] ||= nil
+      @city = params[:city] ||= nil
+      @state = params[:state] ||= nil
+      @zipcode = params[:zipcode] ||= nil
+      @phone_number = params[:phone_number] ||= nil
+      @remember_me_token = params[:remember_me_token] ||= nil
+      @logged_in = params[:logged_in] ||= nil
+      @active = params[:active] ||= nil
+      @activation_code = params[:activation_code] ||= nil
+      @activated_at = params[:activated_at] ||= nil
+      @reset_token = params[:reset_token] ||= nil
+      @id = params[:_id] ||= nil
     end
 
     def to_json
