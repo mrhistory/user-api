@@ -12,7 +12,9 @@ module UserAPI
                   :city,
                   :state,
                   :zipcode,
-                  :phone_number
+                  :phone_number,
+                  :password,
+                  :password_confirmation
 
     attr_reader :remember_me_token,
                 :logged_in,

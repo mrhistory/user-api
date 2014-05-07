@@ -59,12 +59,12 @@ describe UserAPI do
     UserAPI.delete_user(user.id)
   end
 
-  it 'should create a user, activate the user, login the user, logout the user, and delete the user' do
-    user = UserAPI.create_user(@user1)
-    activated_user = UserAPI.activate_user(user.activation_code)
-    response = UserAPI.login_user(@user1.email, @user1.password)
-    response.email.should eq(user.email)
-    response = UserAPI.logout_user()
-    UserAPI.delete_user(user.id)
-  end
+  # it 'should create a user, activate the user, login the user, logout the user, and delete the user' do
+  #   user = UserAPI.create_user(@user1)
+  #   activated_user = UserAPI.activate_user(user.activation_code)
+  #   response = UserAPI.login_user(@user1.email, @user1.password)
+  #   response.email.should eq(user.email)
+  #   response = UserAPI.logout_user()
+  #   UserAPI.delete_user(user.id)
+  # end
 end
