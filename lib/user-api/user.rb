@@ -44,10 +44,12 @@ module UserAPI
       @activated_at = params[:activated_at] ||= nil
       @reset_token = params[:reset_token] ||= nil
       @id = params[:_id] ||= nil
+      @password = params[:password] ||= nil
+      @password_confirmation = params[:password_confirmation] ||= nil
     end
 
     def to_json
-      {
+      hash = {
         :organizations => @organizations,
         :email => @email,
         :members => @members,
@@ -60,7 +62,10 @@ module UserAPI
         :state => @state,
         :zipcode => @zipcode,
         :phone_number => @phone_number
-      }.to_json
+      }
+      hash[:password] = @password unless @password == nil
+      hash[:password_confirmation] = @password_confirmation unless @password_confirmation == nil
+      hash.to_json
     end
   end
 
