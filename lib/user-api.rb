@@ -24,37 +24,65 @@ module UserAPI
     @response = @endpoint['users/.json'].post user.to_json
     User.new(parse_json(@response.to_str))
   rescue => e
-    raise Exception, e.response
+    raise Exception, e.response ||= e.message
+  end
+
+  def self.get_user(id)
+    @response = @endpoint["users/#{id}.json"].get
+    User.new(parse_json(@response.to_str))
+  rescue => e
+    raise Exception, e.response ||= e.message
   end
 
   def self.activate_user(code)
     @response = @endpoint['users/activate/.json'].put( { :activation_code => code }.to_json)
     User.new(parse_json(@response.to_str))
   rescue Exception => e
-    raise Exception, e.response
+    raise Exception, e.response ||= e.message
   end
 
-  def self.login_user(username, password, remember_me = false)
-    @response = @endpoint['users/login/.json'].put( { :username => username,
+  def self.login_user(email, password, remember_me = false)
+    @response = @endpoint['users/login/.json'].put( { :email => email,
                                                       :password => password,
                                                       :remember_me => remember_me }.to_json)
     User.new(parse_json(@response.to_str))
   rescue Exception => e
-    raise Exception, e.response
+    raise Exception, e.response ||= e.message
   end
 
   def self.logout_user(id)
     @response = @endpoint['users/logout/.json'].put( { :id => id }.to_json)
     true
   rescue Exception => e
-    raise Exception, e.response
+    raise Exception, e.response ||= e.message
+  end
+
+  def self.update_user(user)
+    @response = @endpoint["users/#{user.id}.json"].put user.to_json
+    User.new(parse_json(@response.to_str))
+  rescue Exception => e
+    raise Exception, e.response ||= e.message
   end
 
   def self.delete_user(id)
     @response = @endpoint["users/#{id}.json"].delete
     true
   rescue Exception => e
-    raise Exception, e.response
+    raise Exception, e.response ||= e.message
+  end
+
+  def self.logged_in?(id)
+    @response = @endpoint["users/logged_in/#{id}.json"].get
+    parse_json(@response.to_str)[:logged_in]
+  rescue Exception => e
+    raise Exception, e.response ||= e.message
+  end
+
+  def self.remember_me(token)
+    @response = @endpoint["/users/remember_me/#{token}.json"].get
+    User.new(parse_json(@response.to_str))
+  rescue Exception => e
+    raise Exception, e.response ||= e.message
   end
 
   
