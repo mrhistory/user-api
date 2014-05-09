@@ -23,8 +23,8 @@ describe UserAPI do
   @user2 = UserAPI::User.new({
     organizations: [1],
     email: 'test2@fake.com',
-    password: 'fakePW',
-    password_confirmation: 'fakePW',
+    password: 'fakePW2',
+    password_confirmation: 'fakePW2',
     first_name: 'Test',
     last_name: 'User2',
     address1: '123 Main St.',
@@ -100,6 +100,15 @@ describe UserAPI do
     logged_in_user = UserAPI.login_user(@user1.email, @user1.password, true)
     response = UserAPI.remember_me(logged_in_user.remember_me_token)
     response.email.should eq(@user1.email)
+    UserAPI.delete_user(user.id)
+  end
+
+  it 'should reset the password' do
+    user = UserAPI.create_user(@user1)
+    user = UserAPI.activate_user(user.activation_code)
+    token = UserAPI.get_reset_token(user.email)
+    response = UserAPI.reset_password(token, @user2.password, @user2.password_confirmation)
+    response.email.should eq(user.email)
     UserAPI.delete_user(user.id)
   end
 end
